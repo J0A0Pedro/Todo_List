@@ -4,11 +4,12 @@ import './styles.css'
 
 interface TaskProps {
     task: ITask,
-    deleteTask(DeleteTaskById: number): void,
+    desc: string,
+    deleteTask(DeleteTaskById: number, DeleteDesc: string): void,
 }
 
 
-function TodoTask( {task, deleteTask}: TaskProps ) {
+function TodoTask( {task, desc, deleteTask}: TaskProps ) {
 	 
 	return (
 		<div className="card">
@@ -17,8 +18,12 @@ function TodoTask( {task, deleteTask}: TaskProps ) {
                
             </div>
 
+            <div>
+                {task.desc}
+            </div>
+
             <div className="line2" >
-            <span className="btn-card" onClick={() => deleteTask(task.id)}>X</span>
+            <span className="btn-card" onClick={() => deleteTask(task.id, task.desc)}>X</span>
             </div>
 		</div>
 	);

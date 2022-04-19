@@ -18,6 +18,8 @@ function App() {
 	const [task, setTask] = useState("");
 	const [todoList, setTodoList] = useState<ITask[]>([]);
 
+	const [DescTask, setDescTask] = useState("");
+
 	function addTask(): void{
 
 		if(task === ""){
@@ -28,16 +30,23 @@ function App() {
 
 			console.log(idRandom(10));
 
-			const newTask = { id: idRandom(999999), nameTask: task}
+			const newTask = { id: idRandom(999999), nameTask: task, desc: DescTask}
 
 			setTodoList([...todoList, newTask]);
 
 
 
-			toast.success("Task cadastrada com sucesso!")
+			toast.success("Task cadastrada com sucesso!");
 
 		
 		}
+
+
+
+	
+			
+
+		
 		
 		
 		
@@ -45,9 +54,12 @@ function App() {
 		
 	}
 
-	function deleteTask(DeleteTaskById: number): void{
-		setTodoList(todoList.filter( (taskName) => taskName.id !== DeleteTaskById));
+	function deleteTask(DeleteTaskById: number, DeleteDesc: string): void{
+		setTodoList(todoList.filter( (taskName) => taskName.id !== DeleteTaskById && DeleteDesc));
 	}
+
+
+	
 
 	return (
 		<div className="App">
@@ -74,6 +86,17 @@ function App() {
 					}}
 				/>
 
+				<input
+					type="text" 
+					placeholder="Descrição da task..." 
+					name="DescTask"
+					className="input"
+					value={DescTask}
+					onChange={ (event) => {
+						setDescTask(event.target.value)
+					}}
+				/>
+
 				<button type="submit" onClick={addTask} className="btn-header">Adicionar Task</button>
 			</header>
 			
@@ -82,7 +105,7 @@ function App() {
 			
 
 			{todoList.map( (task, key) => (
-				<TodoTask key={key} task={task} deleteTask={deleteTask} />
+				<TodoTask key={key} task={task} desc={DescTask} deleteTask={deleteTask} />
 
 			))}
 			
