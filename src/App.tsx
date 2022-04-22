@@ -2,18 +2,22 @@ import { useState } from "react";
 import TodoTask from "./components/TodoTask/TodoTask";
 import { ITask } from "./Interfaces";
 
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-  
-
 import './styles/styles.css'
 
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { Button } from 'reactstrap';
 
 
 
-function App() {
+function App(props:unknown) {
+
+			
+	
+
 
 	const [task, setTask] = useState("");
 	const [todoList, setTodoList] = useState<ITask[]>([]);
@@ -34,47 +38,29 @@ function App() {
 
 			setTodoList([...todoList, newTask]);
 
-
-
 			toast.success("Task cadastrada com sucesso!");
 
+		};
 		
-		}
-
-
-
-	
-			
-
-		
-		
-		
-		
-
 		
 	}
+
 
 	function deleteTask(DeleteTaskById: number, DeleteDesc: string): void{
 		setTodoList(todoList.filter( (taskName) => taskName.id !== DeleteTaskById && DeleteDesc));
 	}
 
 
-	
-
 	return (
 		<div className="App">
 
 			<ToastContainer
-				autoClose={2500}
+				autoClose={1000}
 				pauseOnHover={false}
-
-			
 			/>
 
 			<header>
-
 				<h2>Lists</h2>
-
 				<input
 					type="text" autoComplete="off" 
 					placeholder="Escrever task..." 
@@ -97,18 +83,17 @@ function App() {
 					}}
 				/>
 
-				<button type="submit" onClick={addTask} className="btn-header">Adicionar Task</button>
+				{/* <button type="submit" onClick={addTask} className="btn-header">Adicionar Task</button> */}
+				<Button type="submit" onClick={addTask} className="btn-header" color="primary">Adicionar Task</Button>
 			</header>
-			
+
 			<div className="line"></div>
 
 			
-
 			{todoList.map( (task, key) => (
 				<TodoTask key={key} task={task} desc={DescTask} deleteTask={deleteTask} />
 
 			))}
-			
 		</div>
 	);
 }
